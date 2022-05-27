@@ -21,4 +21,5 @@ for card in item:
     title = card.find('div', class_='product-meta-inner').find('a').get_text(strip=True)
     price = card.find('div', class_='price').get_text(strip=True)
     availability = card.find('div', class_='text-in-stock').get_text(strip=True)
-    print(code + '\n' + title + '\n' + price + '\n' + availability + '\n\n')
+    link = card.find('div', class_='product-img img images clearfix').find('a').get('href')
+    print(code + '\n' + title + '\n' + price + '\n' + availability + '\n' + link + '\n\n')
