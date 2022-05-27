@@ -13,8 +13,12 @@ url = 'https://patrik.com.ua/konstruktory/'
 r = requests.get(url, headers=header)
 soup = BeautifulSoup(r.text, 'lxml')
 
-item = soup.find('div', class_='col-lg-3 col-md-3 col-sm-3 col-xs-6 product-col col-fullwidth')
+item = soup.find_all('div', class_='col-lg-3 col-md-3 col-sm-3 col-xs-6 product-col col-fullwidth')
 
-code = item.find('p', class_='sku').get_text(strip=True)
-title = item.find('div', class_='product-meta-inner').find('a').get_text(strip=True)
-print(code + '\n' + title)
+for card in item:
+
+    code = card.find('p', class_='sku').get_text(strip=True)
+    title = card.find('div', class_='product-meta-inner').find('a').get_text(strip=True)
+    price = card.find('div', class_='price').get_text(strip=True)
+    availability = card.find('div', class_='text-in-stock').get_text(strip=True)
+    print(code + '\n' + title + '\n' + price + '\n' + availability + '\n\n')
