@@ -6,20 +6,43 @@ header = {
     'user-agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'
 }
 
-HOST = "https://patrik.com.ua/"
+HOST = "https://patrik.com.ua/" # Константа
 
 url = 'https://patrik.com.ua/konstruktory/'
 
-r = requests.get(url, headers=header)
-soup = BeautifulSoup(r.text, 'lxml')
 
-item = soup.find_all('div', class_='col-lg-3 col-md-3 col-sm-3 col-xs-6 product-col col-fullwidth')
+response = requests.get(url, headers=header)
 
-for card in item:
+soup = BeautifulSoup(response.text, "lxml")
 
-    code = card.find('p', class_='sku').get_text(strip=True)
+data = soup.find_all('div', class_='col-lg-3 col-md-3 col-sm-3 col-xs-6 product-col col-fullwidth')
+
+for card in data:
+
     title = card.find('div', class_='product-meta-inner').find('a').get_text(strip=True)
+    product_code = card.find('p', class_='sku').get_text(strip=True)
     price = card.find('div', class_='price').get_text(strip=True)
     availability = card.find('div', class_='text-in-stock').get_text(strip=True)
-    link = card.find('div', class_='product-img img images clearfix').find('a').get('href')
-    print(code + '\n' + title + '\n' + price + '\n' + availability + '\n' + link + '\n\n')
+    card_link = card.find('div', class_='product-img img images clearfix').find('a').get('href')
+    card_link_img = card.find('a', class_='img').find('img').get('src')
+
+    print(title + '\n' + product_code + '\n' + price + '\n' + availability + '\n' + card_link + '\n' + card_link_img + '\n\n')
+
+
+
+
+
+
+
+# soup = BeautifulSoup(response.text, 'lxml')
+#
+# item = soup.find_all('div', class_='col-lg-3 col-md-3 col-sm-3 col-xs-6 product-col col-fullwidth')
+#
+# for card in item:
+#
+#     code = card.find('p', class_='sku').get_text(strip=True)
+#     title = card.find('div', class_='product-meta-inner').find('a').get_text(strip=True)
+#     price = card.find('div', class_='price').get_text(strip=True)
+#     availability = card.find('div', class_='text-in-stock').get_text(strip=True)
+#     link = card.find('div', class_='product-img img images clearfix').find('a').get('href')
+#     print(code + '\n' + title + '\n' + price + '\n' + availability + '\n' + link + '\n\n')
