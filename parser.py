@@ -27,6 +27,7 @@ for card in data:
     card_link_img = card.find('a', class_='img').find('img').get('src')
 
     print(title + '\n' + product_code + '\n' + price + '\n' + availability + '\n' + card_link + '\n' + card_link_img + '\n\n')
+    print('Парсинг завершен')
 
 
 
